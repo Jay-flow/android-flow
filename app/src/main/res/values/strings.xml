@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Whisper</string>
+    <string name="facebook_app_id">1389644971204137</string> <string name="fb_login_protocol_scheme">fb1389644971204137</string>
 </resources>
