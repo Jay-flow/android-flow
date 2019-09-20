@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorLightPink">#E694FF</color>
-    <color name="colorRose">#FF608D</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSky">#3494E6</color>
+    <color name="colorSunset">#EC6EAD</color>
+    <color name="colorWhite">#FCFCFC</color>
 </resources>

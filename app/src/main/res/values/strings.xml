@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Whisper</string>
+    <string name="app_name">Flow</string>
     <string name="facebook_app_id">1389644971204137</string>
     <string name="fb_login_protocol_scheme">fb1389644971204137</string>
     <string name="kakao_app_key">57ce233c478ead05df86d2cc13c2e7b5</string>

@@ -1,53 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/appTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="@string/app_name"
+        android:gravity="center"
         android:textColor="@color/colorWhite"
-        android:textSize="70sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        android:textSize="95sp" />
 
-    <Button
-        android:id="@+id/btnLoginKakao"
-        android:layout_width="260dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/login_button"
-        android:drawableLeft="@drawable/ic_kakao"
-        android:paddingHorizontal="20dp"
-        android:text="카카오 로그인"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/btnLoginFacebook"
-        android:layout_width="260dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/login_button"
-        android:drawableLeft="@drawable/login_ic_facebook"
-        android:paddingHorizontal="17dp"
-        android:text="페이스북 로그인"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginKakao" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인함으로써 이용약관 및\n개인정보 취급방침에 동의합니다."
+            android:textColor="@color/colorWhite"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnLoginKakao"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/login_button"
+            android:drawableLeft="@drawable/ic_kakao"
+            android:paddingHorizontal="20dp"
+            android:text="카카오 로그인"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/btnLoginFacebook"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_button"
+            android:drawableLeft="@drawable/login_ic_facebook"
+            android:paddingHorizontal="17dp"
+            android:text="페이스북 로그인"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginKakao" />
+    </LinearLayout>
+
+</LinearLayout>
