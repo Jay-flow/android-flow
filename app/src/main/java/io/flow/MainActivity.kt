@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val customFont: Typeface = Typeface.createFromAsset(assets, "Moonbright.ttf")
+        appTitle.typeface = customFont
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        appTitle.setAnimation(fadeIn)
         facebookLogin()
         kakaoLogin()
     }
@@ -84,13 +89,8 @@ class MainActivity : AppCompatActivity() {
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return
         }
-
         //super.onActivityResult(requestCode, resultCode, data);
         callbackManager?.onActivityResult(requestCode, resultCode, data)
-    }
-
-    fun successLogin() {
-        Toast.makeText(this, "카카오로그인", Toast.LENGTH_SHORT).show()
     }
 
     private fun kakaoRequestMe() {
@@ -101,7 +101,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSuccess(result: MeV2Response?) {
                 Log.d("kakaoLogin", result?.properties.toString())
-                successLogin()
             }
         })
     }
@@ -115,4 +114,5 @@ class MainActivity : AppCompatActivity() {
             kakaoRequestMe()
         }
     }
+
 }

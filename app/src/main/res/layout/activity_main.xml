@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
+
     tools:context=".MainActivity">
 
     <TextView
@@ -16,14 +17,12 @@
         android:text="@string/app_name"
         android:gravity="center"
         android:textColor="@color/colorWhite"
-        android:textSize="95sp" />
+        android:textSize="100sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="50dp"
-        android:paddingBottom="50dp"
         android:gravity="center">
 
         <TextView
@@ -43,11 +42,7 @@
             android:paddingHorizontal="20dp"
             android:text="카카오 로그인"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnLoginFacebook"
@@ -59,10 +54,14 @@
             android:paddingHorizontal="17dp"
             android:text="페이스북 로그인"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginKakao" />
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="#CED4DA"
+            android:text="소셜 로그인 없이 회원가입으로 이용" />
     </LinearLayout>
 
 </LinearLayout>
