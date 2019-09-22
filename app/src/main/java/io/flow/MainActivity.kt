@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.kakao.auth.AuthType
@@ -22,6 +19,9 @@ import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import com.facebook.*
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,7 +57,17 @@ class MainActivity : AppCompatActivity() {
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(loginResult: LoginResult) {
                         Log.d("MainActivity", "Facebook token: " + loginResult.accessToken.token)
-                        //startActivity(Intent(applicationContext, AuthenticatedActivity::class.java))
+                        val request = GraphRequest.newMeRequest(
+                            loginResult.accessToken
+                        ) { `object`, response ->
+                            Log.d("MainActivity", response.toString())
+                            Log.d("MainActivity", `object`.toString())
+                        }
+
+                        val parameters = Bundle()
+                        parameters.putString("fields", "id,name,email,gender,location,picture.type(large)")
+                        request.parameters = parameters
+                        request.executeAsync()
                     }
                     override fun onCancel() {
                         Log.d("MainActivity", "Facebook onCancel.")
@@ -69,7 +79,6 @@ class MainActivity : AppCompatActivity() {
                 })
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
@@ -91,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onSuccess(result: MeV2Response?) {
+                Log.d("kakaoLogin", result?.properties.toString())
                 successLogin()
             }
         })
