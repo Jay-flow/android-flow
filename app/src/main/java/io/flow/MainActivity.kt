@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.kakao.auth.AuthType
@@ -21,8 +21,6 @@ import com.kakao.util.exception.KakaoException
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import com.facebook.*
-
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         Session.getCurrentSession().checkAndImplicitOpen()
 
         btnLoginKakao.setOnClickListener {
+            buttonClickAnimation(btnLoginKakao)
             Handler().postDelayed({
                 Session.getCurrentSession().open(AuthType.KAKAO_TALK, this)
             }, 100)
@@ -54,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun facebookLogin() {
         btnLoginFacebook.setOnClickListener {
+            buttonClickAnimation(btnLoginFacebook)
             // Login
             callbackManager = CallbackManager.Factory.create()
             LoginManager.getInstance()
@@ -70,20 +70,26 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         val parameters = Bundle()
-                        parameters.putString("fields", "id,name,email,gender,location,picture.type(large)")
+                        parameters.putString(
+                            "fields",
+                            "id,name,email,gender,location,picture.type(large)"
+                        )
                         request.parameters = parameters
                         request.executeAsync()
                     }
+
                     override fun onCancel() {
                         Log.d("MainActivity", "Facebook onCancel.")
 
                     }
+
                     override fun onError(error: FacebookException) {
                         Log.d("MainActivity", "Facebook onError.")
                     }
                 })
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
@@ -114,5 +120,8 @@ class MainActivity : AppCompatActivity() {
             kakaoRequestMe()
         }
     }
+
+    private fun buttonClickAnimation(button: View) =
+        button.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_click))
 
 }
