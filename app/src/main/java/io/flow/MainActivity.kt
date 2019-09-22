@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val customFont: Typeface = Typeface.createFromAsset(assets, "Moonbright.ttf")
+        val customFont: Typeface = Typeface.createFromAsset(assets, "Amperzand.ttf")
         appTitle.typeface = customFont
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         appTitle.setAnimation(fadeIn)
