@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "954409326076",
+    "firebase_url": "https://flow-ebc59.firebaseio.com",
+    "project_id": "flow-ebc59",
+    "storage_bucket": "flow-ebc59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954409326076:android:011be0494ccfc56a388e79",
+        "android_client_info": {
+          "package_name": "io.flow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954409326076-mj2cahlfdu1fht990bq9s05ajf4rfrr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVPARt_nqStMKYzFOAdEQjh-Xe-N5gT1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954409326076-mj2cahlfdu1fht990bq9s05ajf4rfrr9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
