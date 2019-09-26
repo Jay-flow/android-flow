@@ -17,11 +17,8 @@ import com.kakao.util.exception.KakaoException
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import com.facebook.*
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.JsonObject
 import com.kakao.auth.*
 import com.kakao.auth.authorization.accesstoken.AccessToken
-import com.kakao.usermgmt.StringSet.*
 import io.common.User
 import io.data.UserData
 
@@ -134,6 +131,7 @@ class MainActivity : AppCompatActivity() {
                 val email: String = result!!.getKakaoAccount().email
                 val profile_thum: String? = result?.properties?.get("thumbnail_image")
                 val profile_image: String? = result?.properties?.get("profile_image")
+
                 userData = UserData(social, token, name, email, profile_thum, profile_image)
                 nextActivity(userData)
             }

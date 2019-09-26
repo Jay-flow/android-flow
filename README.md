@@ -1,1 +1,2 @@
-# whisper-android
+# To Do List
+- [ ] 성별 미리 선택되어 값 넣는거 해야 됨

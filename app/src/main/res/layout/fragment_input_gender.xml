@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".fragments.InputName">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="성별"
+        android:textColor="@android:color/black"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:textSize="20sp"
+                android:background="@drawable/btn_radio_color_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:textColor="@drawable/btn_radio_color_selector_text"
+                android:text="남자" />
+
+            <RadioButton
+                android:layout_marginTop="15dp"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:textSize="20sp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/btn_radio_color_selector"
+                android:textColor="@drawable/btn_radio_color_selector_text"
+                android:gravity="center"
+                android:text="여자" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom">
+
+        <Button
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorSky"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="계속"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

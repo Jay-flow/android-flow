@@ -8,4 +8,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/colorSky</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>
