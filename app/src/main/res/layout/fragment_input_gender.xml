@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".fragments.InputName">
+    tools:context=".fragments.NameFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,36 +18,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center">
 
         <RadioGroup
             android:id="@+id/gender"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <RadioButton
                 android:id="@+id/male"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
-                android:textSize="20sp"
                 android:background="@drawable/btn_radio_color_selector"
                 android:button="@android:color/transparent"
                 android:gravity="center"
+                android:text="남자"
                 android:textColor="@drawable/btn_radio_color_selector_text"
-                android:text="남자" />
+                android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/female"
-                android:layout_marginTop="15dp"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
-                android:textSize="20sp"
-                android:button="@android:color/transparent"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/btn_radio_color_selector"
-                android:textColor="@drawable/btn_radio_color_selector_text"
+                android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text="여자" />
+                android:text="여자"
+                android:textColor="@drawable/btn_radio_color_selector_text"
+                android:textSize="20sp" />
         </RadioGroup>
     </LinearLayout>
 
@@ -58,11 +59,12 @@
         android:gravity="bottom">
 
         <Button
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorSky"
+            android:id="@+id/nextButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="계속"
+            android:backgroundTint="@color/colorSky"
+            android:text="완료"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
 

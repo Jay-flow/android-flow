@@ -7,6 +7,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.kakao.network.ErrorResult
@@ -19,6 +20,8 @@ import java.util.*
 import com.facebook.*
 import com.kakao.auth.*
 import com.kakao.auth.authorization.accesstoken.AccessToken
+import com.kakao.usermgmt.StringSet.birthday
+import com.kakao.usermgmt.StringSet.profile_image
 import io.common.User
 import io.data.UserData
 
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         appTitle.setAnimation(fadeIn)
         facebookLogin()
         kakaoLogin()
-
+        noSocialLogin()
 
         //카톡 자동 로그인 방지 코드 나중에 아래 삭제 하기
 //        UserManagement.getInstance().requestUnlink(object : UnLinkResponseCallback() {
@@ -48,6 +51,22 @@ class MainActivity : AppCompatActivity() {
 //        })
     }
 
+    private fun noSocialLogin() {
+        noSocialLogin.setOnClickListener {
+            userData = UserData(
+                "N",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            )
+            nextActivity(userData)
+        }
+    }
 
     private fun kakaoLogin() {
         kakaoCallback = SessionStatusCallback()
@@ -179,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         button.startAnimation(AnimationUtils.loadAnimation(this, R.anim.button_click))
 
     private fun nextActivity(user: UserData) {
-        val intent = Intent(applicationContext, Join::class.java)
+        val intent = Intent(applicationContext, JoinActivity::class.java)
         intent.putExtra("user", user)
         startActivity(intent)
     }
