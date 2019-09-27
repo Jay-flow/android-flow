@@ -5,11 +5,11 @@
             android:padding="10dp"
             android:shape="rectangle">
             <!-- 테두리 내부 색상 설정 -->
-            <solid android:color="#7600FA" />
+            <solid android:color="@android:color/transparent" />
             <!-- 테두리 설정: 두께, 색상 -->
             <stroke
                 android:width="1dp"
-                android:color="@android:color/transparent" />
+                android:color="@color/colorPurple" />
             <corners
                 android:bottomLeftRadius="30dp"
                 android:bottomRightRadius="30dp"

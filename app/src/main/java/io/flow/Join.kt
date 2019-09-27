@@ -35,7 +35,7 @@ class Join : AppCompatActivity() {
         val emailFragment = InputEmail()
         val nameFragment = InputName()
         val genderFragment = InputGender()
-
+        Log.d("JoinUser", user.toString())
         inputFragmentData(user, emailFragment, nameFragment, genderFragment)
 
         adapter.addItem(emailFragment)

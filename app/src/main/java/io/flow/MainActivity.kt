@@ -72,10 +72,11 @@ class MainActivity : AppCompatActivity() {
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult> {
                     override fun onSuccess(loginResult: LoginResult) {
-                        Log.d("MainActivity", "Facebook token: " + loginResult.accessToken.token)
                         val request = GraphRequest.newMeRequest(
                             loginResult.accessToken
                         ) { _, response ->
+                            Log.d("FacebookUser", response.toString())
+
                             val social = "F"
                             val token: String = loginResult.accessToken.token.toString()
                             val name: String? = response.jsonObject.get("name").toString()
@@ -83,14 +84,24 @@ class MainActivity : AppCompatActivity() {
                             var profile_image =
                                 response.jsonObject.getJSONObject("picture").getJSONObject("data")
                                     .get("url").toString()
-                            userData = UserData(social, token, name, email, null, profile_image)
+                            userData = UserData(
+                                social,
+                                token,
+                                name,
+                                email,
+                                null,
+                                null,
+                                null,
+                                null,
+                                profile_image
+                            )
                             nextActivity(userData)
                         }
 
                         val parameters = Bundle()
                         parameters.putString(
                             "fields",
-                            "name,email,gender,location,picture.type(large)"
+                            "name,email,gender,birthday,location,picture.type(large),age_range"
                         )
                         request.parameters = parameters
                         request.executeAsync()
@@ -130,9 +141,25 @@ class MainActivity : AppCompatActivity() {
                 val name: String? = result?.properties?.get("nickname")
                 val email: String = result!!.getKakaoAccount().email
                 val profile_thum: String? = result?.properties?.get("thumbnail_image")
+                val gender: String? =
+                    result!!.getKakaoAccount().gender.toString().toLowerCase(Locale.US)
+                val age: String? = result!!.getKakaoAccount().ageRange.toString().substring(4, 6)
+                val birthday: String? = result!!.getKakaoAccount().birthday
+
+
                 val profile_image: String? = result?.properties?.get("profile_image")
 
-                userData = UserData(social, token, name, email, profile_thum, profile_image)
+                userData = UserData(
+                    social,
+                    token,
+                    name,
+                    email,
+                    gender,
+                    age,
+                    birthday,
+                    profile_thum,
+                    profile_image
+                )
                 nextActivity(userData)
             }
         })
