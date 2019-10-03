@@ -22,13 +22,11 @@ class NavigationTopFragment : Fragment() {
         val rootView: ViewGroup =  inflater.inflate(R.layout.fragment_navigation_top, container, false) as ViewGroup
 
         rootView.account.setOnClickListener {
-            Toast.makeText(context, "계정설정 액티비티", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, AccountActivity::class.java)
             startActivity(intent)
         }
 
         rootView.pick.setOnClickListener {
-            Toast.makeText(context, "카드 액티비티", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, PickActivity::class.java)
             startActivity(intent)
         }

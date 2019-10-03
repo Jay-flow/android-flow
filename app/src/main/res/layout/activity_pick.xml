@@ -38,10 +38,11 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/rewind_button"
                     android:layout_toStartOf="@+id/rewind_button"
-                    android:src="@drawable/skip_red_24dp"
+                    android:src="@drawable/ic_do_not_disturb_alt_24dp"
+                    app:tint="@color/colorSky"
                     app:backgroundTint="@android:color/white"
                     app:fabSize="auto"
-                    app:rippleColor="#22ED7563"/>
+                    app:rippleColor="#2C000000"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/rewind_button"
@@ -55,7 +56,7 @@
                     android:src="@drawable/rewind_blue_24dp"
                     app:backgroundTint="@android:color/white"
                     app:fabSize="mini"
-                    app:rippleColor="#225BC9FA"/>
+                    app:rippleColor="#2C000000"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/like_button"
@@ -64,10 +65,11 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/rewind_button"
                     android:layout_toEndOf="@+id/rewind_button"
-                    android:src="@drawable/like_green_24dp"
+                    android:src="@drawable/ic_favorite_24dp"
+                    app:tint="@color/colorSunset"
                     app:backgroundTint="@android:color/white"
                     app:fabSize="auto"
-                    app:rippleColor="#226FE2B3"/>
+                    app:rippleColor="#2C000000"/>
 
             </RelativeLayout>
 
