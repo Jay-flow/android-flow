@@ -21,8 +21,10 @@ class CardStackAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val spot = spots[position]
-        holder.name.text = "${spot.id}. ${spot.name}"
-        holder.city.text = spot.city
+        //holder.name.text = "${spot.id}. ${spot.name}"
+        holder.name.text = spot.name
+        holder.age.text = spot.age
+        holder.contents.text = spot.contents
         Glide.with(holder.image)
                 .load(spot.url)
                 .into(holder.image)
@@ -45,7 +47,8 @@ class CardStackAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.item_name)
-        var city: TextView = view.findViewById(R.id.item_city)
+        val age: TextView = view.findViewById(R.id.item_age)
+        var contents: TextView = view.findViewById(R.id.item_contents)
         var image: ImageView = view.findViewById(R.id.item_image)
     }
 

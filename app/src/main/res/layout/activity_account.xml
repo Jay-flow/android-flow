@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="10dp"
-                android:text="펑티모"
+                android:text="펑티모, 27세"
                 android:textStyle="bold"
                 android:textSize="25sp"/>
         </LinearLayout>
@@ -73,6 +73,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageButton
+                    android:id="@+id/picture"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:background="?attr/selectableItemBackgroundBorderless"

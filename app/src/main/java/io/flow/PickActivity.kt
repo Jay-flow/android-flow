@@ -1,6 +1,5 @@
 package io.flow
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,8 +9,6 @@ import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
@@ -45,35 +42,6 @@ class PickActivity : AppCompatActivity(), CardStackListener {
             super.onBackPressed()
             //ActivityCompat.finishAffinity(this)
         }
-    }
-
-    override fun onCardDragging(direction: Direction, ratio: Float) {
-        Log.d("CardStackView", "onCardDragging: d = ${direction.name}, r = $ratio")
-    }
-
-    override fun onCardSwiped(direction: Direction) {
-        Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
-        if (manager.topPosition == adapter.itemCount - 5) {
-            paginate()
-        }
-    }
-
-    override fun onCardRewound() {
-        Log.d("CardStackView", "onCardRewound: ${manager.topPosition}")
-    }
-
-    override fun onCardCanceled() {
-        Log.d("CardStackView", "onCardCanceled: ${manager.topPosition}")
-    }
-
-    override fun onCardAppeared(view: View, position: Int) {
-        val textView = view.findViewById<TextView>(R.id.item_name)
-        Log.d("CardStackView", "onCardAppeared: ($position) ${textView.text}")
-    }
-
-    override fun onCardDisappeared(view: View, position: Int) {
-        val textView = view.findViewById<TextView>(R.id.item_name)
-        Log.d("CardStackView", "onCardDisappeared: ($position) ${textView.text}")
     }
 
     private fun setupCardStackView() {
@@ -120,7 +88,7 @@ class PickActivity : AppCompatActivity(), CardStackListener {
         manager.setVisibleCount(3)
         manager.setTranslationInterval(8.0f)
         manager.setScaleInterval(0.95f)
-        manager.setSwipeThreshold(0.3f)
+        manager.setSwipeThreshold(0.1f)
         manager.setMaxDegree(20.0f)
         manager.setDirections(Direction.HORIZONTAL)
         manager.setCanScrollHorizontal(true)
@@ -145,124 +113,118 @@ class PickActivity : AppCompatActivity(), CardStackListener {
         result.dispatchUpdatesTo(adapter)
     }
 
-    private fun reload() {
-        val old = adapter.getSpots()
-        val new = createSpots()
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun addFirst(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                add(manager.topPosition, createSpot())
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun addLast(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            addAll(List(size) { createSpot() })
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun removeFirst(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
-
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(manager.topPosition)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun removeLast(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
-
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(this.size - 1)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun replace() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            removeAt(manager.topPosition)
-            add(manager.topPosition, createSpot())
-        }
-        adapter.setSpots(new)
-        adapter.notifyItemChanged(manager.topPosition)
-    }
-
-    private fun swap() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            val first = removeAt(manager.topPosition)
-            val last = removeAt(this.size - 1)
-            add(manager.topPosition, last)
-            add(first)
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun createSpot(): Spot {
-        return Spot(
-            name = "Yasaka Shrine",
-            city = "Kyoto",
-            url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"
-        )
-    }
-
     private fun createSpots(): List<Spot> {
         val spots = ArrayList<Spot>()
-        spots.add(Spot(name = "Yasaka Shrine", city = "Kyoto", url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"))
-        spots.add(Spot(name = "Fushimi Inari Shrine", city = "Kyoto", url = "https://source.unsplash.com/NYyCqdBOKwc/600x800"))
-        spots.add(Spot(name = "Bamboo Forest", city = "Kyoto", url = "https://source.unsplash.com/buF62ewDLcQ/600x800"))
-        spots.add(Spot(name = "Brooklyn Bridge", city = "New York", url = "https://source.unsplash.com/THozNzxEP3g/600x800"))
-        spots.add(Spot(name = "Empire State Building", city = "New York", url = "https://source.unsplash.com/USrZRcRS2Lw/600x800"))
-        spots.add(Spot(name = "The statue of Liberty", city = "New York", url = "https://source.unsplash.com/PeFk7fzxTdk/600x800"))
-        spots.add(Spot(name = "Louvre Museum", city = "Paris", url = "https://source.unsplash.com/LrMWHKqilUw/600x800"))
-        spots.add(Spot(name = "Eiffel Tower", city = "Paris", url = "https://source.unsplash.com/HN-5Z6AmxrM/600x800"))
-        spots.add(Spot(name = "Big Ben", city = "London", url = "https://source.unsplash.com/CdVAUADdqEc/600x800"))
-        spots.add(Spot(name = "Great Wall of China", city = "China", url = "https://source.unsplash.com/AWh9C-QjhE4/600x800"))
+        spots.add(
+            Spot(
+                name = "펑티모",
+                age = "27",
+                contents = "안녕하세요. 펑티모 입니다. 고양이 소릴내봐 냥냥냥냥냥 멍멍이 소릴내봐 멍멍멍멍멍",
+                url = "http://mblogthumb2.phinf.naver.net/MjAxODEwMTZfMjM0/MDAxNTM5NjYxNDAxNDc2.b_IZaY_koH4pA_3y3_32pCcIp5nwuWGLKG-KAywp2tMg.fPwEEpNwK2a4i679Ys7nibElbnVTKAVC1aHL4ttkhrcg.JPEG.yyt1129/%ED%8E%91%ED%8B%B0%EB%AA%A8.jpg?type=w800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Fushimi Inari Shrine",
+                age = "27",
+                contents = "Kyoto",
+                url = "https://source.unsplash.com/NYyCqdBOKwc/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Bamboo Forest",
+                age = "27",
+                contents = "Kyoto",
+                url = "https://source.unsplash.com/buF62ewDLcQ/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Brooklyn Bridge",
+                age = "27",
+                contents = "New York",
+                url = "https://source.unsplash.com/THozNzxEP3g/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Empire State Building",
+                age = "27",
+                contents = "New York",
+                url = "https://source.unsplash.com/USrZRcRS2Lw/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "The statue of Liberty",
+                age = "27",
+                contents = "New York",
+                url = "https://source.unsplash.com/PeFk7fzxTdk/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Louvre Museum",
+                age = "27",
+                contents = "Paris",
+                url = "https://source.unsplash.com/LrMWHKqilUw/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Eiffel Tower",
+                age = "27",
+                contents = "Paris",
+                url = "https://source.unsplash.com/HN-5Z6AmxrM/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Big Ben",
+                age = "27",
+                contents = "London",
+                url = "https://source.unsplash.com/CdVAUADdqEc/600x800"
+            )
+        )
+        spots.add(
+            Spot(
+                name = "Great Wall of China",
+                age = "27",
+                contents = "China",
+                url = "https://source.unsplash.com/AWh9C-QjhE4/600x800"
+            )
+        )
         return spots
     }
 
+
+    override fun onCardDragging(direction: Direction, ratio: Float) {
+        Log.d("CardStackView", "onCardDragging: d = ${direction.name}, r = $ratio")
+    }
+
+    override fun onCardSwiped(direction: Direction) {
+        Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
+        if (manager.topPosition == adapter.itemCount - 5) {
+            paginate()
+        }
+    }
+
+    override fun onCardRewound() {
+        Log.d("CardStackView", "onCardRewound: ${manager.topPosition}")
+    }
+
+    override fun onCardCanceled() {
+        Log.d("CardStackView", "onCardCanceled: ${manager.topPosition}")
+    }
+
+    override fun onCardAppeared(view: View, position: Int) {
+        val textView = view.findViewById<TextView>(R.id.item_name)
+        Log.d("CardStackView", "onCardAppeared: ($position) ${textView.text}")
+    }
+
+    override fun onCardDisappeared(view: View, position: Int) {
+        val textView = view.findViewById<TextView>(R.id.item_name)
+        Log.d("CardStackView", "onCardDisappeared: ($position) ${textView.text}")
+    }
 }
