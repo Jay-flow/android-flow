@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val isLogin: Boolean = UserSharedPreferences(this).getIsLogin()
         if(isLogin) {
-            intent = Intent(this, HomeActivity::class.java)
+            intent = Intent(this, PickActivity::class.java)
         } else {
             intent = Intent(this, LoginActivity::class.java)
         }
