@@ -1,4 +1,4 @@
-package com.yuyakaido.android.cardstackview.sample
+package io.flow.pickActivity
 
 data class Spot(
         val id: Long = counter++,

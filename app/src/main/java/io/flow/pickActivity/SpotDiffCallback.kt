@@ -1,4 +1,4 @@
-package com.yuyakaido.android.cardstackview.sample
+package io.flow.pickActivity
 
 import androidx.recyclerview.widget.DiffUtil
 

@@ -1,6 +1,6 @@
 package io.flow
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,36 +8,42 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
-import com.yuyakaido.android.cardstackview.sample.CardStackAdapter
-import com.yuyakaido.android.cardstackview.sample.Spot
-import com.yuyakaido.android.cardstackview.sample.SpotDiffCallback
-import java.util.ArrayList
+import io.flow.pickActivity.CardStackAdapter
+import io.flow.pickActivity.Spot
+import io.flow.pickActivity.SpotDiffCallback
+
+import java.util.*
 
 class PickActivity : AppCompatActivity(), CardStackListener {
-
-    private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawer_layout) }
     private val cardStackView by lazy { findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(this, this) }
     private val adapter by lazy { CardStackAdapter(createSpots()) }
+    private var backKeyClickTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pick)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
         setupCardStackView()
         setupButton()
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawers()
-        } else {
+        if (System.currentTimeMillis() > backKeyClickTime + 2000) {
+            backKeyClickTime = System.currentTimeMillis()
+            Toast.makeText(this, "한번 더 뒤로가기를 누를시 앱이 종료됩니다.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (System.currentTimeMillis() <= backKeyClickTime + 2000) {
             super.onBackPressed()
+            //ActivityCompat.finishAffinity(this)
         }
     }
 
@@ -258,4 +264,5 @@ class PickActivity : AppCompatActivity(), CardStackListener {
         spots.add(Spot(name = "Great Wall of China", city = "China", url = "https://source.unsplash.com/AWh9C-QjhE4/600x800"))
         return spots
     }
+
 }

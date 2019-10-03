@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/account"
+        android:title="계정"
+        android:icon="@drawable/ic_account_circle_24dp"
+        app:showAsAction="always" />
+    <item
+        android:title="카드"
+        android:icon="@drawable/ic_favorite_24dp"
+        app:showAsAction="always" />
+    <item
+        android:title="대화"
+        android:icon="@drawable/ic_message_24dp"
+        app:showAsAction="always" />
+</menu>
