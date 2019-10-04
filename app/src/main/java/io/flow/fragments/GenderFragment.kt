@@ -33,18 +33,11 @@ class GenderFragment : Fragment() {
                 inflate.female.isChecked = true
             }
         }
-        var genderPick: String = "male"
-        inflate.gender.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                val radio: RadioButton = inflate.findViewById(checkedId)
-                genderPick = if (radio.text == "남자") "male" else "female"
-
-                Toast.makeText(
-                    context, " On checked change : ${radio.text}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        )
+        var genderPick = "male"
+        inflate.gender.setOnCheckedChangeListener { group, checkedId ->
+            val radio: RadioButton = inflate.findViewById(checkedId)
+            genderPick = if (radio.text == "남자") "male" else "female"
+        }
         inflate.nextButton.setOnClickListener {
             if (activity is JoinActivity) {
                 val joinActivity = activity as JoinActivity

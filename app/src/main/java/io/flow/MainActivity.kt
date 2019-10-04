@@ -8,12 +8,12 @@ import io.db.UserSharedPreferences
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val isLogin: Boolean = UserSharedPreferences(this).getIsLogin()
-        if(isLogin) {
-            intent = Intent(this, PickActivity::class.java)
-        } else {
-            intent = Intent(this, LoginActivity::class.java)
-        }
+        val email = UserSharedPreferences(this).get("email")
+        val startActivity = if (email == "emptyParameter") LoginActivity::class.java else PickActivity::class.java
+        val intent = Intent(this, startActivity)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         return startActivity(intent)
     }
 }

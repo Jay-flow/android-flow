@@ -1,6 +1,5 @@
 package io.flow
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,7 +11,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.firebase.firestore.FirebaseFirestore
-import io.common.User
 import io.data.UserData
 import io.db.UserSharedPreferences
 import io.flow.fragments.EmailFragment
@@ -54,21 +52,15 @@ class JoinActivity : AppCompatActivity() {
             ) {
             }
         })
-
-        UserSharedPreferences(this).set(user)
-
     }
 
     fun nextItem() {
         pager.currentItem = pager.currentItem + 1
     }
 
-
     val setEmail = { email: String -> user.email = email }
     val setName = { name: String -> user.name = name }
     val setGender = { gender: String -> user.gender = gender }
-
-
 
     private fun inputFragmentData(
         user: Parcelable,
@@ -80,7 +72,6 @@ class JoinActivity : AppCompatActivity() {
         bundle.putParcelable("user", user)
         emailFragment.arguments = bundle
         nameFragment.arguments = bundle
-        // 성별 데이터 선택되어 있는 작업 해야됨
         genderFragment.arguments = bundle
     }
 
@@ -88,7 +79,12 @@ class JoinActivity : AppCompatActivity() {
     fun saveUserDB() {
         db.collection("users").document(user.email.toString()).set(user)
             .addOnSuccessListener { documentReference ->
-                intent = Intent(this, HomeActivity::class.java)
+                // 내부 SharedPreference 설정
+                UserSharedPreferences(this).set(user)
+
+                intent = Intent(this, PickActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
             .addOnFailureListener { e ->
