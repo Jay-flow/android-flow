@@ -17,20 +17,24 @@ class UserSharedPreferences(context: Context) {
     fun get(key: String): String {
         val userString: String? = prefs.getString(KEY, "empty")
 
-        var userDataVariable = "emptyParameter"
+        var userDataVariable: String ?= null
         if(userString != "empty") {
             val user: UserData = Gson().fromJson(userString, UserData::class.java)
             when (key) {
                 "social" -> userDataVariable = user.social
-                "token" -> userDataVariable = user.token as String
-                "name" -> userDataVariable = user.name as String
-                "email" -> userDataVariable = user.email as String
-                "gender" -> userDataVariable = user.gender as String
-                "age" -> userDataVariable = user.age as String
-                "birthday" -> userDataVariable = user.birthday as String
-                "profile_thum" -> userDataVariable = user.profile_thum as String
-                "profile_image" -> userDataVariable = user.profile_image as String
+                "token" -> userDataVariable = user.token
+                "name" -> userDataVariable = user.name
+                "email" -> userDataVariable = user.email
+                "gender" -> userDataVariable = user.gender
+                "age" -> userDataVariable = user.age
+                "birthday" -> userDataVariable = user.birthday
+                "profile_thum" -> userDataVariable = user.profile_thum
+                "profile_image" -> userDataVariable = user.profile_image
             }
+        }
+
+        if (userDataVariable == null) {
+            userDataVariable = "emptyParameter"
         }
 
         return userDataVariable
