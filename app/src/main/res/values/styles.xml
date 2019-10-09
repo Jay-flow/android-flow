@@ -1,11 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <item name="android:statusBarColor">@color/colorSky</item>
-    </style>
-
     <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@color/colorSky</item>
@@ -15,5 +9,10 @@
 
     <style name="MaterialTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="NoActionBarDialog" parent="Theme.AppCompat.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

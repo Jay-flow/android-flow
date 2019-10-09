@@ -19,8 +19,6 @@ import java.util.*
 import com.facebook.*
 import com.kakao.auth.*
 import com.kakao.auth.authorization.accesstoken.AccessToken
-import com.kakao.usermgmt.callback.UnLinkResponseCallback
-import io.common.User
 import io.data.UserData
 
 

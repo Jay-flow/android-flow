@@ -23,11 +23,13 @@ class NavigationTopFragment : Fragment() {
 
         rootView.account.setOnClickListener {
             val intent = Intent(context, AccountActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
 
         rootView.pick.setOnClickListener {
             val intent = Intent(context, PickActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
 

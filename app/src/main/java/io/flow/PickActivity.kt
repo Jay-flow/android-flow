@@ -9,6 +9,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
@@ -40,8 +41,8 @@ class PickActivity : AppCompatActivity(), CardStackListener {
         }
 
         if (System.currentTimeMillis() <= backKeyClickTime + 2000) {
-            super.onBackPressed()
-            //ActivityCompat.finishAffinity(this)
+            //super.onBackPressed()
+            ActivityCompat.finishAffinity(this)
         }
     }
 
