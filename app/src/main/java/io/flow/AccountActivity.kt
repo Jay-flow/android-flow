@@ -25,6 +25,13 @@ class AccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
 
+        setupListener()
+    }
+    private fun setupListener() {
+        profile_changed.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
         picture_changed.setOnClickListener {
             uploadChooser = UploadChooser().apply {
                 addNotifier(object : UploadChooser.UploadChooserNotifierInterface {

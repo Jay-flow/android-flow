@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="내 닉네임"
+        android:text="@string/nickname"
         android:textSize="50sp"
         android:textColor="@android:color/black"/>
     <LinearLayout
@@ -21,7 +21,7 @@
         <EditText
             android:id="@+id/name"
             android:inputType="textPersonName"
-            android:hint="닉네임을 입력해주세요"
+            android:hint="@string/edit_text_hint_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

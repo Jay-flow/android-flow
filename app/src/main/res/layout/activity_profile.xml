@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <fragment
+            android:id="@+id/upload_gallery"
+            android:name="io.flow.fragments.GalleryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="430dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/self_introduction"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/profile_edit_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:text="0/500" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_multi_line"
+            android:hint="@string/edit_text_hint_contents"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:maxLines="4"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            tools:ignore="RtlSymmetry" />
+
+        <LinearLayout
+            android:layout_marginTop="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/nickname"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/profile_edit_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:text="0/500" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_text_hint_nickname"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLines="4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_weight="1"
+            android:text="@string/gender"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/profile_edit_title" />
+
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/male"/>
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/female"/>
+        </RadioGroup>
+    </LinearLayout>
+</ScrollView>

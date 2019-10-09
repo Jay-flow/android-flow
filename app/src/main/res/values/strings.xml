@@ -4,6 +4,17 @@
     <string name="fb_login_protocol_scheme">fb1389644971204137</string>
     <string name="kakao_app_key">57ce233c478ead05df86d2cc13c2e7b5</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="male">남자</string>
+    <string name="female">여자</string>
+    <string name="gender">성별</string>
+    <string name="self_introduction">자기소개</string>
+    <string name="nickname">닉네임</string>
+    <string name="email">이메일</string>
+    <string name="complete">완료</string>
+    <string name="change">변경</string>
+
+    <string name="edit_text_hint_contents">내용을 입력해주세요</string>
+    <string name="edit_text_hint_nickname">닉네임을 입력해주세요</string>
+    <string name="edit_text_hint_email">이메일을 입력해주세요</string>
+    <string name="radio_button_gender">성별을 선택해주세요</string>
 </resources>

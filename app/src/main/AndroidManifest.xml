@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/MaterialThemeActionBar" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".PickActivity" />
         <activity
@@ -67,6 +70,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
