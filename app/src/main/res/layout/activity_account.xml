@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/navigationTopFragment"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/top_navigation_height"
         android:name="io.flow.fragments.NavigationTopFragment" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,19 +44,23 @@
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
                 <ImageButton
+                    android:id="@+id/setting_changed"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_settings_24dp"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    tools:ignore="ContentDescription" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

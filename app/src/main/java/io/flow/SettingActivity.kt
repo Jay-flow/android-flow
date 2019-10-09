@@ -3,14 +3,12 @@ package io.flow
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 
-class ProfileActivity : AppCompatActivity() {
+class SettingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_setting)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -25,11 +23,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        saveProfile()
+        saveSettings()
         super.onBackPressed()
     }
 
-    private fun saveProfile() {
-        // 뒤로갈때 프로필 저장 기능 구현하기
+    private fun saveSettings() {
+        // 뒤로갈때 설정 저장 기능 구현하기
     }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import io.flow.AccountActivity
+import io.flow.MessageActivity
 import io.flow.PickActivity
 import io.flow.R
 import kotlinx.android.synthetic.main.fragment_navigation_top.*
@@ -22,20 +23,23 @@ class NavigationTopFragment : Fragment() {
         val rootView: ViewGroup =  inflater.inflate(R.layout.fragment_navigation_top, container, false) as ViewGroup
 
         rootView.account.setOnClickListener {
-            val intent = Intent(context, AccountActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            goActivity(AccountActivity::class.java)
         }
 
         rootView.pick.setOnClickListener {
-            val intent = Intent(context, PickActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            goActivity(PickActivity::class.java)
         }
 
         rootView.talk.setOnClickListener {
-            Toast.makeText(context, "메세지 액티비티", Toast.LENGTH_SHORT).show()
+            goActivity(MessageActivity::class.java)
         }
         return rootView
+    }
+
+    private fun goActivity(activityClass: Class<*>) {
+        val intent = Intent(context, activityClass)
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        activity?.overridePendingTransition(0, 0)
     }
 }

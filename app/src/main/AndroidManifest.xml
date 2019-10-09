@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/MaterialTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MessageActivity"></activity>
+        <activity
+            android:name=".SettingActivity"
+            android:theme="@style/MaterialThemeActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/MaterialThemeActionBar" />

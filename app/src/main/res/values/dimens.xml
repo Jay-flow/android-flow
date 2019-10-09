@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="top_navigation_height">55dp</dimen>
     <dimen name="profile_edit_title">15sp</dimen>
+    <dimen name="component_top_margin">17dp</dimen>
+    <dimen name="container_padding">17dp</dimen>
 </resources>

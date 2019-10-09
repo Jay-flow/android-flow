@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/navigationTopFragment"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/top_navigation_height"
         android:name="io.flow.fragments.NavigationTopFragment" />
     <LinearLayout
         android:orientation="vertical"
