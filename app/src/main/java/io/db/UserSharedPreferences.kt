@@ -10,15 +10,16 @@ import io.data.UserData
 
 
 class UserSharedPreferences(context: Context) {
-    private val FILE_NAME= "userInfo"
+    private val FILE_NAME = "userInfo"
     private val KEY = "user"
     private val prefs: SharedPreferences = context.getSharedPreferences(FILE_NAME, 0)
 
-    fun get(key: String): String {
+    fun get(key: String, index: Int? = null): String {
         val userString: String? = prefs.getString(KEY, "empty")
 
-        var userDataVariable: String ?= null
-        if(userString != "empty") {
+        var userDataVariable: String? = null
+
+        if (userString != "empty") {
             val user: UserData = Gson().fromJson(userString, UserData::class.java)
             when (key) {
                 "social" -> userDataVariable = user.social
@@ -28,8 +29,13 @@ class UserSharedPreferences(context: Context) {
                 "gender" -> userDataVariable = user.gender
                 "age" -> userDataVariable = user.age
                 "birthday" -> userDataVariable = user.birthday
-                "profile_thum" -> userDataVariable = user.profile_thum
-                "profile_image" -> userDataVariable = user.profile_image
+            }
+
+            if (index != null) {
+                when (key) {
+                    "thumbnails" -> userDataVariable = user.thumbnails?.get(index)
+                    "images" -> userDataVariable = user.images?.get(index)
+                }
             }
         }
 
