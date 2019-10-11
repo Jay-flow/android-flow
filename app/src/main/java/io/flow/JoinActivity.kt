@@ -15,7 +15,7 @@ import io.data.UserData
 import io.db.UserSharedPreferences
 import io.flow.fragments.EmailFragment
 import io.flow.fragments.GenderFragment
-import io.flow.fragments.NameFragment
+import io.flow.fragments.NicknameFragment
 import kotlinx.android.synthetic.main.activity_join.*
 
 class JoinActivity : AppCompatActivity() {
@@ -28,13 +28,13 @@ class JoinActivity : AppCompatActivity() {
         user = intent.getParcelableExtra("user")
         val adapter = UserPagerAdapter(supportFragmentManager)
         val emailFragment = EmailFragment()
-        val nameFragment = NameFragment()
+        val nicknameFragment = NicknameFragment()
         val genderFragment = GenderFragment()
         Log.d("JoinUser", user.toString())
-        inputFragmentData(user, emailFragment, nameFragment, genderFragment)
+        inputFragmentData(user, emailFragment, nicknameFragment, genderFragment)
 
         adapter.addItem(emailFragment)
-        adapter.addItem(nameFragment)
+        adapter.addItem(nicknameFragment)
         adapter.addItem(genderFragment)
 
         pager.adapter = adapter
@@ -59,26 +59,26 @@ class JoinActivity : AppCompatActivity() {
     }
 
     val setEmail = { email: String -> user.email = email }
-    val setName = { name: String -> user.name = name }
+    val setNickname = { nickname: String -> user.nickname = nickname }
     val setGender = { gender: String -> user.gender = gender }
 
     private fun inputFragmentData(
         user: Parcelable,
         emailFragment: EmailFragment,
-        nameFragment: NameFragment,
+        nicknameFragment: NicknameFragment,
         genderFragment: GenderFragment
     ) {
         val bundle = Bundle()
         bundle.putParcelable("user", user)
         emailFragment.arguments = bundle
-        nameFragment.arguments = bundle
+        nicknameFragment.arguments = bundle
         genderFragment.arguments = bundle
     }
 
     // 파이어베이스 데이터 입력하는거 구현 해야됨 !!!!!!!!
     fun saveUserDB() {
         db.collection("users").document(user.email.toString()).set(user)
-            .addOnSuccessListener { documentReference ->
+            .addOnSuccessListener {
                 // 내부 SharedPreference 설정
                 UserSharedPreferences(this).set(user)
 
@@ -87,11 +87,12 @@ class JoinActivity : AppCompatActivity() {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener {
                 Toast.makeText(this, "오류가 발생했습니다. 관리자에게 문의해주세요.", Toast.LENGTH_LONG).show()
             }
     }
 
+    @Suppress("DEPRECATION")
     class UserPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
         val items = ArrayList<Fragment>()
         fun addItem(item: Fragment) {

@@ -24,7 +24,7 @@ class UserSharedPreferences(context: Context) {
             when (key) {
                 "social" -> userDataVariable = user.social
                 "token" -> userDataVariable = user.token
-                "name" -> userDataVariable = user.name
+                "nickname" -> userDataVariable = user.nickname
                 "email" -> userDataVariable = user.email
                 "gender" -> userDataVariable = user.gender
                 "age" -> userDataVariable = user.age
@@ -51,6 +51,12 @@ class UserSharedPreferences(context: Context) {
         val userInfo: String = Gson().toJson(user)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(KEY, userInfo)
+        editor.apply()
+    }
+
+    fun clear() {
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.clear()
         editor.apply()
     }
 }

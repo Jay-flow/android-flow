@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        loginActivity.setAnimation(fadeIn)
+        loginActivity.animation = fadeIn
         facebookLogin()
         kakaoLogin()
         noSocialLogin()
@@ -95,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
 
                             val social = "F"
                             val token: String = loginResult.accessToken.token.toString()
-                            val name: String? = response.jsonObject.get("name").toString()
+                            val nickname: String? = response.jsonObject.get("name").toString()
                             val email: String? = response.jsonObject.get("email").toString()
                             val images: ArrayList<String> = ArrayList()
                             images.add(
@@ -105,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
                             userData = UserData(
                                 social,
                                 token,
-                                name,
+                                nickname,
                                 email,
                                 null,
                                 null,
@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
 
                 val social = "K"
                 val token: String = AccessToken.Factory.getInstance().accessToken.toString()
-                val name: String? = result?.properties?.get("nickname")
+                val nickname: String? = result?.properties?.get("nickname")
                 val email: String? = result?.kakaoAccount?.email
 
                 val thumbnails: ArrayList<String> = ArrayList()
@@ -172,7 +172,7 @@ class LoginActivity : AppCompatActivity() {
                 userData = UserData(
                     social,
                     token,
-                    name,
+                    nickname,
                     email,
                     gender,
                     age,

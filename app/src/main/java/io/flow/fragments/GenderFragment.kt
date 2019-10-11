@@ -34,7 +34,7 @@ class GenderFragment : Fragment() {
             }
         }
         var genderPick = "male"
-        inflate.gender.setOnCheckedChangeListener { group, checkedId ->
+        inflate.gender.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = inflate.findViewById(checkedId)
             genderPick = if (radio.text == "남자") "male" else "female"
         }
