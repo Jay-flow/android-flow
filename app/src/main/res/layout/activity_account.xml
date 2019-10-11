@@ -25,17 +25,18 @@
                 android:id="@+id/uploaded_image"
                 android:layout_height="150dp"
                 android:layout_width="150dp"
-                android:src="@drawable/sample"
+                android:src="@drawable/default_profile_images"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="30dip"
                 app:riv_border_width="2dip"
                 app:riv_oval="true" />
             <TextView
+                android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="10dp"
-                android:text="펑티모, 27세"
+                android:text="이름 없음"
                 android:textStyle="bold"
                 android:textSize="25sp"/>
         </LinearLayout>

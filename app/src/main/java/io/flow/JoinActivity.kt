@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.firebase.firestore.FirebaseFirestore
 import io.data.UserData
-import io.db.UserSharedPreferences
+import io.util.UserSharedPreferences
 import io.flow.fragments.EmailFragment
 import io.flow.fragments.GenderFragment
 import io.flow.fragments.NicknameFragment

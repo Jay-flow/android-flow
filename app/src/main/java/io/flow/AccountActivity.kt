@@ -12,6 +12,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import io.util.PermissionUtil
+import io.util.UserSharedPreferences
 import kotlinx.android.synthetic.main.activity_account.*
 import java.io.File
 
@@ -24,9 +25,15 @@ class AccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
-
+        setName()
         setupListener()
     }
+
+    private fun setName() {
+        val getNickname = UserSharedPreferences(this).get("nickname")
+        nickname.text = getNickname
+    }
+
     private fun setupListener() {
         profile_changed.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)

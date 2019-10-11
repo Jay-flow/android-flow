@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
-import io.db.UserSharedPreferences
 import io.flow.pickActivity.CardStackAdapter
 import io.flow.pickActivity.Spot
 import io.flow.pickActivity.SpotDiffCallback

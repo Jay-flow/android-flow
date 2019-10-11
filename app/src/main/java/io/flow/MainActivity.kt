@@ -3,7 +3,7 @@ package io.flow
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import io.db.UserSharedPreferences
+import io.util.UserSharedPreferences
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
