@@ -59,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
                 null,
                 null,
                 null,
+                null,
                 null
             )
             nextActivity(userData)
@@ -107,6 +108,7 @@ class LoginActivity : AppCompatActivity() {
                                 token,
                                 nickname,
                                 email,
+                                null,
                                 null,
                                 null,
                                 null,
@@ -177,6 +179,7 @@ class LoginActivity : AppCompatActivity() {
                     gender,
                     age,
                     birthday,
+                    null,
                     thumbnails,
                     images
                 )

@@ -74,8 +74,7 @@ class JoinActivity : AppCompatActivity() {
         nicknameFragment.arguments = bundle
         genderFragment.arguments = bundle
     }
-
-    // 파이어베이스 데이터 입력하는거 구현 해야됨 !!!!!!!!
+    
     fun saveUserDB() {
         db.collection("users").document(user.email.toString()).set(user)
             .addOnSuccessListener {

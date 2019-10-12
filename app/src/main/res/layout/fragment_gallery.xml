@@ -15,6 +15,7 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
             <ImageButton
+                android:id="@+id/image0"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

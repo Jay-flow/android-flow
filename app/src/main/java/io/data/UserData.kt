@@ -12,6 +12,7 @@ data class UserData (
     var gender: String?,
     var age: String?,
     var birthday: String?,
+    var introduction: String?,
     var thumbnails: ArrayList<String>?,
     var images: ArrayList<String>?
 ) : Parcelable
