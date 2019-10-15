@@ -35,7 +35,7 @@ class AccountActivity : AppCompatActivity() {
     private fun setImage (images: ArrayList<String>?) {
         SetImagesTask(images, object : SetImagesNotifierInterface {
             override fun setImagesResult(result: ArrayList<Bitmap>) {
-                uploaded_image.setImageBitmap(result.get(0))
+                uploaded_image.setImageBitmap(result[0])
             }
         }).execute()
     }
@@ -50,7 +50,13 @@ class AccountActivity : AppCompatActivity() {
             startActivity(intent)
         }
         picture_changed.setOnClickListener {
-            UploadChooser().show(supportFragmentManager, "")
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    uploaded_image.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
         }
     }
 }

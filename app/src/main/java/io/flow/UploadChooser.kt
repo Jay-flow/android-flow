@@ -1,10 +1,11 @@
 package io.flow
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.media.ExifInterface
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -12,18 +13,32 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.makeramen.roundedimageview.RoundedImageView
 import io.util.PermissionUtil
-import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.upload_chooser.*
 import java.io.File
+import androidx.core.content.FileProvider
+import java.io.IOException
+import android.media.ExifInterface
+import android.graphics.BitmapFactory
 
-class UploadChooser: BottomSheetDialogFragment() {
+class UploadChooser : BottomSheetDialogFragment() {
+    lateinit var imageFilePath: String
+    lateinit var uploadChooserNotifierInterface: UploadChooserNotifierInterface
+    lateinit var photoUri: Uri
+
     private var CAMERA_PERMISSION_REQUEST = 1000
     private var GALLERY_PERMISSION_REQUEST = 1001
     private val FILE_NAME = "profile_picture.jpg"
+
+    interface UploadChooserNotifierInterface {
+        fun uploadImage(bitmap: Bitmap)
+    }
+
+    fun addNotifier(listener: UploadChooserNotifierInterface) {
+        uploadChooserNotifierInterface = listener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,30 +94,53 @@ class UploadChooser: BottomSheetDialogFragment() {
     }
 
     private fun openCamera() {
-        val photoUri = FileProvider.getUriForFile(
-            activity!!.applicationContext,
-            activity!!.applicationContext.packageName + ".provider",
-            createCameraFile()
-        )
-        startActivityForResult(
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            }, CAMERA_PERMISSION_REQUEST
-        )
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(activity!!.packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createCameraFile()
+            } catch (ex: IOException) {
+                // Error occurred while creating the File
+            }
+
+            if (photoFile != null) {
+                photoUri = FileProvider.getUriForFile(
+                    activity!!.applicationContext,
+                    activity!!.packageName,
+                    photoFile
+                )
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                startActivityForResult(takePictureIntent, CAMERA_PERMISSION_REQUEST)
+            }
+        }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun createCameraFile(): File {
-        val dir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File(dir, FILE_NAME)
+        val storageDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val image = File.createTempFile(
+            FILE_NAME,
+            ".jpg",
+            storageDir
+        )
+        imageFilePath = image.absolutePath
+        return image
     }
 
+    private fun exifOrientationToDegrees(exifOrientation: Int): Int {
+        return when (exifOrientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
+    }
 
-    private fun uploadImage(imageUri: Uri) {
-        val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, imageUri)
-        val uploadedImage = activity?.findViewById<RoundedImageView>(R.id.uploaded_image)
-        uploadedImage?.setImageBitmap(bitmap)
-        this.dismiss()
+    private fun rotate(bitmap: Bitmap, degree: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degree)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -110,16 +148,39 @@ class UploadChooser: BottomSheetDialogFragment() {
         when (requestCode) {
             CAMERA_PERMISSION_REQUEST -> {
                 if (resultCode != Activity.RESULT_OK) return
-                val photoUri = FileProvider.getUriForFile(
-                    activity!!.applicationContext,
-                    activity!!.applicationContext.packageName + ".provider",
-                    createCameraFile()
-                )
-                uploadImage(photoUri)
+                val bitmap = BitmapFactory.decodeFile(imageFilePath)
+                var exif: ExifInterface? = null
+
+                try {
+                    exif = ExifInterface(imageFilePath)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+
+                val exifOrientation: Int
+                val exifDegree: Int
+
+                if (exif != null) {
+                    exifOrientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL
+                    )
+                    exifDegree = exifOrientationToDegrees(exifOrientation)
+                } else {
+                    exifDegree = 0
+                }
+                val bitmapRotate = rotate(bitmap, exifDegree.toFloat())
+                uploadChooserNotifierInterface.uploadImage(bitmapRotate)
             }
-            GALLERY_PERMISSION_REQUEST -> data?.let { uploadImage(it.data!!) }
+            GALLERY_PERMISSION_REQUEST -> data?.let {
+                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, it.data!!)
+                uploadChooserNotifierInterface.uploadImage(bitmap)
+            }
         }
+        this.dismiss()
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
