@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.kakao.sdk:usermgmt:1.22.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.google.firebase:firebase-firestore:20.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // 카드 관련 라이브러리

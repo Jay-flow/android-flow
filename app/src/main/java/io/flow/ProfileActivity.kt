@@ -10,6 +10,7 @@ import io.flow.fragments.GalleryFragment
 import io.util.SetImagesNotifierInterface
 import io.util.SetImagesTask
 import io.util.UserSharedPreferences
+import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.nickname
 import kotlinx.android.synthetic.main.fragment_gallery.*
@@ -29,11 +30,69 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setupImages() {
         val galleryFragment = supportFragmentManager.findFragmentById(R.id.upload_gallery) as GalleryFragment
+        setupImageUploadOnclick(galleryFragment)
         SetImagesTask(user?.images, object: SetImagesNotifierInterface {
             override fun setImagesResult(result: ArrayList<Bitmap>) {
                 galleryFragment.image0.setImageBitmap(result[0])
             }
         }).execute()
+    }
+
+    private fun setupImageUploadOnclick(galleryFragment: GalleryFragment) {
+        galleryFragment.image0.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image0.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
+        galleryFragment.image1.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image1.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
+        galleryFragment.image2.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image2.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
+        galleryFragment.image3.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image3.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
+        galleryFragment.image4.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image4.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
+        galleryFragment.image5.setOnClickListener {
+            val uploadChooser = UploadChooser()
+            uploadChooser.addNotifier(object: UploadChooser.UploadChooserNotifierInterface {
+                override fun uploadImage(bitmap: Bitmap) {
+                    galleryFragment.image5.setImageBitmap(bitmap)
+                }
+            })
+            uploadChooser.show(supportFragmentManager, "")
+        }
     }
 
     private fun setupProfile() {

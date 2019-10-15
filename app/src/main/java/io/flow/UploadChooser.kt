@@ -14,7 +14,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.makeramen.roundedimageview.RoundedImageView
 import io.util.PermissionUtil
 import kotlinx.android.synthetic.main.upload_chooser.*
 import java.io.File
