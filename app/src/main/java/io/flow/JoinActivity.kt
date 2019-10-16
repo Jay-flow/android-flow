@@ -16,6 +16,7 @@ import io.util.UserSharedPreferences
 import io.flow.fragments.EmailFragment
 import io.flow.fragments.GenderFragment
 import io.flow.fragments.NicknameFragment
+import io.flow.widget.ProgressDialog
 import kotlinx.android.synthetic.main.activity_join.*
 
 class JoinActivity : AppCompatActivity() {
@@ -76,6 +77,8 @@ class JoinActivity : AppCompatActivity() {
     }
     
     fun saveUserDB() {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.show()
         db.collection("users").document(user.email.toString()).set(user)
             .addOnSuccessListener {
                 // 내부 SharedPreference 설정
@@ -87,6 +90,7 @@ class JoinActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             .addOnFailureListener {
+                progressDialog.hide()
                 Toast.makeText(this, "오류가 발생했습니다. 관리자에게 문의해주세요.", Toast.LENGTH_LONG).show()
             }
     }

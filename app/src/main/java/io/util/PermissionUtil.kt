@@ -21,14 +21,14 @@ class PermissionUtil {
 
             if (!hasPermission) permissionNeeded.add(it)
         }
-        if (granted) return true
+        return if (granted) true
         else {
             ActivityCompat.requestPermissions(
                 activity,
                 permissionNeeded.toTypedArray(),
                 requestCode
             )
-            return false
+            false
         }
     }
 

@@ -21,6 +21,7 @@ import androidx.core.content.FileProvider
 import java.io.IOException
 import android.media.ExifInterface
 import android.graphics.BitmapFactory
+import android.util.Log
 
 class UploadChooser : BottomSheetDialogFragment() {
     lateinit var imageFilePath: String
@@ -180,12 +181,11 @@ class UploadChooser : BottomSheetDialogFragment() {
         this.dismiss()
     }
 
-    override fun onRequestPermissionsResult(
+    fun onRequestPermissionsResultFromCallActivity(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             GALLERY_PERMISSION_REQUEST ->
                 if (PermissionUtil().permissionGranted(

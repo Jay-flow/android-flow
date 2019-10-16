@@ -19,10 +19,7 @@ import java.util.*
 import com.facebook.*
 import com.kakao.auth.*
 import com.kakao.auth.authorization.accesstoken.AccessToken
-import com.kakao.usermgmt.callback.UnLinkResponseCallback
 import io.data.UserData
-import kotlin.collections.ArrayList
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -98,11 +95,14 @@ class LoginActivity : AppCompatActivity() {
                             val token: String = loginResult.accessToken.token.toString()
                             val nickname: String? = response.jsonObject.get("name").toString()
                             val email: String? = response.jsonObject.get("email").toString()
+                            /*
                             val images: ArrayList<String> = ArrayList()
                             images.add(
                                 response.jsonObject.getJSONObject("picture").getJSONObject("data")
                                     .get("url").toString()
                             )
+                            */
+
                             userData = UserData(
                                 social,
                                 token,
@@ -113,7 +113,7 @@ class LoginActivity : AppCompatActivity() {
                                 null,
                                 null,
                                 null,
-                                images
+                                null
                             )
                             nextActivity(userData)
                         }
@@ -161,11 +161,11 @@ class LoginActivity : AppCompatActivity() {
                 val nickname: String? = result?.properties?.get("nickname")
                 val email: String? = result?.kakaoAccount?.email
 
-                val thumbnails: ArrayList<String> = ArrayList()
-                thumbnails.add(result?.properties?.get("thumbnail_image").toString())
+                //val thumbnails: ArrayList<String> = ArrayList()
+                //thumbnails.add(result?.properties?.get("thumbnail_image").toString())
 
-                val images: ArrayList<String> = ArrayList()
-                images.add(result?.properties?.get("profile_image").toString())
+                //val images: ArrayList<String> = ArrayList()
+                //images.add(result?.properties?.get("profile_image").toString())
 
                 val gender: String? = result?.kakaoAccount?.gender.toString().toLowerCase(Locale.US)
                 val age: String? = result?.kakaoAccount?.ageRange.toString().substring(4, 6)
@@ -180,8 +180,8 @@ class LoginActivity : AppCompatActivity() {
                     age,
                     birthday,
                     null,
-                    thumbnails,
-                    images
+                    null,
+                    null
                 )
 
                 nextActivity(userData)

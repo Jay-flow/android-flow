@@ -1,10 +1,14 @@
 package io.flow
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
+import com.google.android.gms.tasks.Task
+import io.api.FirebaseDatabase
 import io.data.UserData
 import io.flow.fragments.GalleryFragment
 import io.util.SetImagesNotifierInterface
@@ -33,7 +37,16 @@ class ProfileActivity : AppCompatActivity() {
         setupImageUploadOnclick(galleryFragment)
         SetImagesTask(user?.images, object: SetImagesNotifierInterface {
             override fun setImagesResult(result: ArrayList<Bitmap>) {
-                galleryFragment.image0.setImageBitmap(result[0])
+                for (i in 0 until result.size) {
+                    when(i) {
+                        0 ->  galleryFragment.image0.setImageBitmap(result[0])
+                        1 ->  galleryFragment.image1.setImageBitmap(result[1])
+                        2 ->  galleryFragment.image2.setImageBitmap(result[2])
+                        3 ->  galleryFragment.image3.setImageBitmap(result[3])
+                        4 ->  galleryFragment.image4.setImageBitmap(result[4])
+                        5 ->  galleryFragment.image5.setImageBitmap(result[5])
+                    }
+                }
             }
         }).execute()
     }

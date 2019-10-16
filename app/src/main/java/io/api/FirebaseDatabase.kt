@@ -1,8 +1,12 @@
 package io.api
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
 
 @Suppress("SpellCheckingInspection")
@@ -12,6 +16,7 @@ class FirebaseDatabase(private val fileUploadNotifierInterface: FileUploadNotifi
     interface FileUploadNotifierInterface {
         fun addOnSuccessListener()
         fun addOnFailureListener()
+        fun addOnCompleteListener(task :Task<Uri>)
     }
 
     fun fileUpload(userEmail: String, fileName: String, bitmap: Bitmap) {
@@ -27,6 +32,10 @@ class FirebaseDatabase(private val fileUploadNotifierInterface: FileUploadNotifi
             fileUploadNotifierInterface.addOnFailureListener()
         }.addOnSuccessListener {
             fileUploadNotifierInterface.addOnSuccessListener()
+        }.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> {
+            return@Continuation mountainsRef.downloadUrl
+        }).addOnCompleteListener {
+            fileUploadNotifierInterface.addOnCompleteListener(it)
         }
     }
 }

@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.google.android.gms.tasks.Task
 import io.api.FirebaseDatabase
 import io.data.UserData
 import io.util.PermissionUtil
@@ -22,6 +24,7 @@ import java.io.File
 
 class AccountActivity : AppCompatActivity() {
     var user: UserData? = null
+    private val uploadChooser = UploadChooser()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
@@ -36,11 +39,13 @@ class AccountActivity : AppCompatActivity() {
     }
 
     private fun setImage(images: ArrayList<String>?) {
-        SetImagesTask(images, object : SetImagesNotifierInterface {
-            override fun setImagesResult(result: ArrayList<Bitmap>) {
-                uploaded_image.setImageBitmap(result[0])
-            }
-        }).execute()
+        images?.let {
+            SetImagesTask(images, object : SetImagesNotifierInterface {
+                override fun setImagesResult(result: ArrayList<Bitmap>) {
+                    uploaded_image.setImageBitmap(result[0])
+                }
+            }).execute()
+        }
     }
 
     private fun setupListener() {
@@ -53,7 +58,6 @@ class AccountActivity : AppCompatActivity() {
             startActivity(intent)
         }
         picture_changed.setOnClickListener {
-            val uploadChooser = UploadChooser()
             uploadChooser.addNotifier(object : UploadChooser.UploadChooserNotifierInterface {
                 override fun uploadImage(bitmap: Bitmap) {
                     val filename: Int = if (user?.images == null) 0 else user!!.images!!.size
@@ -65,9 +69,6 @@ class AccountActivity : AppCompatActivity() {
                                 "이미지가 성공적으로 변경되었습니다.",
                                 Toast.LENGTH_LONG
                             ).show()
-
-                            // UserSharedPreferece에 이미지 URL 넣는 작업 해야됨
-
                             uploaded_image.setImageBitmap(bitmap)
                         }
 
@@ -78,10 +79,30 @@ class AccountActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+
+                        override fun addOnCompleteListener(task: Task<Uri>) {
+                            if (task.isSuccessful) {
+                                val downloadUri = task.result
+                                if(user?.images == null) {
+                                    user!!.images = ArrayList()
+                                }
+                                user!!.images!!.add(downloadUri.toString())
+                                UserSharedPreferences(applicationContext).set(user!!)
+                                Log.d("ImagesURL", user!!.images.toString())
+                            }
+
+                        }
                     }).fileUpload(user!!.email!!, filename.toString(), bitmap)
                 }
             })
             uploadChooser.show(supportFragmentManager, "")
         }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        uploadChooser.onRequestPermissionsResultFromCallActivity(requestCode, permissions, grantResults)
     }
 }
