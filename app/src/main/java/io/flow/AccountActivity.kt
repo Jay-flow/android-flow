@@ -3,14 +3,13 @@ package io.flow
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import io.api.FirebaseStorage
 import io.data.UserData
-import io.flow.widget.ProgressDialog
 import io.util.SetImagesNotifierInterface
 import io.util.SetImagesTask
 import io.util.UserSharedPreferences
@@ -23,6 +22,11 @@ class AccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
+    }
+
+    // 프로필 수정 후  돌아 왔을때 onCreate 호출 안되서 세팅 안됨, 그래서 onResume 에 했는데  더 좋은 방법 찾아보기
+    override fun onResume() {
+        super.onResume()
         user = UserSharedPreferences(this).get()
 
         setName(user)
@@ -79,7 +83,7 @@ class AccountActivity : AppCompatActivity() {
                         override fun addOnCompleteListener(task: Task<Uri>) {
                             if (task.isSuccessful) {
                                 val downloadUri = task.result
-                                if(user?.images == null) {
+                                if (user?.images == null) {
                                     user!!.images = ArrayList()
                                 }
                                 user!!.images!!.add(downloadUri.toString())
@@ -93,11 +97,16 @@ class AccountActivity : AppCompatActivity() {
             uploadChooser.show(supportFragmentManager, "")
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        uploadChooser.onRequestPermissionsResultFromCallActivity(requestCode, permissions, grantResults)
+        uploadChooser.onRequestPermissionsResultFromCallActivity(
+            requestCode,
+            permissions,
+            grantResults
+        )
     }
 }

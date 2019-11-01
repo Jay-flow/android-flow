@@ -24,4 +24,6 @@ class ProgressDialog(context: Context): Dialog(context) {
 
         google_progress.indeterminateDrawable = ChromeFloatingCirclesDrawable.Builder(context).build()
     }
+
+
 }

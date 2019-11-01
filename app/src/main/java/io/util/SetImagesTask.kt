@@ -29,7 +29,7 @@ class SetImagesTask constructor(
     override fun onPostExecute(result: ArrayList<Bitmap>?) {
         result?.let {
             setImagesNotifierInterface.setImagesResult(it)
-            progressDialog.hide()
+            progressDialog.dismiss()
         }
     }
 

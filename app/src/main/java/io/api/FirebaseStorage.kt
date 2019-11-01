@@ -43,7 +43,7 @@ class FirebaseStorage(
             return@Continuation mountainsRef.downloadUrl
         }).addOnCompleteListener {
             fileUploadNotifierInterface.addOnCompleteListener(it)
-            progressDialog.hide()
+            progressDialog.dismiss()
         }
     }
 }

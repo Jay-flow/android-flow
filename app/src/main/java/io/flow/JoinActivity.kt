@@ -1,26 +1,23 @@
 package io.flow
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.firebase.firestore.FirebaseFirestore
+import io.api.FirebaseDatabase
 import io.data.UserData
-import io.util.UserSharedPreferences
 import io.flow.fragments.EmailFragment
 import io.flow.fragments.GenderFragment
 import io.flow.fragments.NicknameFragment
-import io.flow.widget.ProgressDialog
+import io.util.UserSharedPreferences
 import kotlinx.android.synthetic.main.activity_join.*
 
 class JoinActivity : AppCompatActivity() {
-    private val db = FirebaseFirestore.getInstance()
     private lateinit var user: UserData
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,24 +72,28 @@ class JoinActivity : AppCompatActivity() {
         nicknameFragment.arguments = bundle
         genderFragment.arguments = bundle
     }
-    
-    fun saveUserDB() {
-        val progressDialog = ProgressDialog(this)
-        progressDialog.show()
-        db.collection("users").document(user.email.toString()).set(user)
-            .addOnSuccessListener {
-                // 내부 SharedPreference 설정
-                UserSharedPreferences(this).set(user)
 
-                intent = Intent(this, PickActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            }
-            .addOnFailureListener {
-                progressDialog.hide()
-                Toast.makeText(this, "오류가 발생했습니다. 관리자에게 문의해주세요.", Toast.LENGTH_LONG).show()
-            }
+    fun saveUserDB() {
+        val context = this
+        val db = FirebaseDatabase(this)
+        db.dataSet(
+            user.email.toString(),
+            user,
+            object : FirebaseDatabase.DatabaseStatusNotifierInterface {
+                override fun addOnSuccessListener() {
+                    // 내부 SharedPreference 설정
+                    UserSharedPreferences(context).set(user)
+
+                    intent = Intent(context, PickActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+
+                override fun addOnCompleteListener() {
+
+                }
+            })
     }
 
     @Suppress("DEPRECATION")
