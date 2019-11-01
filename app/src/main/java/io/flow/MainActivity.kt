@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val userSharedPreferences = UserSharedPreferences(this)
-        //userSharedPreferences.clear()
+        userSharedPreferences.clear()
 
         val user = userSharedPreferences.get()
         val startActivity = if (user == null) LoginActivity::class.java else PickActivity::class.java

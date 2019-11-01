@@ -1,24 +1,17 @@
 package io.flow
 
 import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
-import com.google.android.gms.tasks.Task
-import io.api.FirebaseDatabase
 import io.data.UserData
 import io.flow.fragments.GalleryFragment
 import io.util.SetImagesNotifierInterface
 import io.util.SetImagesTask
 import io.util.UserSharedPreferences
-import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.nickname
 import kotlinx.android.synthetic.main.fragment_gallery.*
-import kotlinx.android.synthetic.main.fragment_gallery.view.*
 
 class ProfileActivity : AppCompatActivity() {
     private var user: UserData? = null
@@ -35,7 +28,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun setupImages() {
         val galleryFragment = supportFragmentManager.findFragmentById(R.id.upload_gallery) as GalleryFragment
         setupImageUploadOnclick(galleryFragment)
-        SetImagesTask(user?.images, object: SetImagesNotifierInterface {
+        SetImagesTask(this, user?.images, object: SetImagesNotifierInterface {
             override fun setImagesResult(result: ArrayList<Bitmap>) {
                 for (i in 0 until result.size) {
                     when(i) {
@@ -135,5 +128,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfile() {
         // 뒤로갈때 프로필 저장 기능 구현하기
+
     }
 }

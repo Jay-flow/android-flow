@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorSky">#3494E6</color>
+    <color name="colorBlueBlack">#1C2035</color>
     <color name="colorSunset">#FF608D</color>
     <color name="colorWhite">#FCFCFC</color>
     <color name="colorPurple">#7600FA</color>
